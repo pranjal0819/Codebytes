@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head_title %}Login | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+    <div class="frame_artical">
+        <h1>Login</h1>{% if request.GET.next %}<h5>Required</h5>{% endif %}
+        {% if messages %}
+            <ul>
+                {% for m in messages %}
+                <li>{{ m }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <label>Username</label>
+            <input type="text" name="user" placeholder="Username"></input>
+            <br>
+            <label>Password</label>
+            <input type="password" name="pass" placeholder="Password"></input>
+            <br>
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+            <div class="submit-row">
+                <input type="submit" value="Login" name="_save">
+                <a href="/signup">Signup</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head_title %}Welcome | {{ block.super }}{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+{% endblock %}
+
+{% block content %}
+<div class="frame_artical">
+	<p>
+		Welcome {{ user.username }}
+		<br>
+		<a href="/view_paper">View Paper</a>
+		<br>
+		<a href="/submit_paper">Submit Paper</a>
+		</form>
+	</p>
+</div>
+{% endblock %}

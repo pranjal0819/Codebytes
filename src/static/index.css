@@ -1,0 +1,236 @@
+.frame_topic{
+	
+}
+.frame_artical{
+	background-color:#fff;
+	margin:0 25px 20px 25px;
+	padding: 20px;
+	border:1px #666 solid;
+	border-radius:15px;
+	box-shadow: 1px 1px 3px #666666;
+}
+.frame_artical h3 a{
+	color:#000;
+}
+.frame_artical h3 a:hover{
+	color:#1581c5;
+}
+.frame_artical ul{
+	padding-left:30px;
+}
+.code{
+	background-color:#dde0ed80;
+	margin:10px 0;
+	width:300px;
+	padding: 25px;
+	border:1px #666 solid;
+	border-radius:15px;
+	letter-spacing:0.02em; 
+}
+.code p{
+	white-space:pre;
+} 
+
+input, textarea, select, .form-row p, form .button {
+    margin: 2px 0;
+    padding: 2px 3px;
+    vertical-align: middle;
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+}
+.form-row div.help {
+    padding: 2px 3px;
+}
+
+textarea {
+    vertical-align: top;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=url],
+input[type=number], input[type=tel], textarea, select, .vTextField {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 6px;
+    margin-top: 0;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus,
+input[type=url]:focus, input[type=number]:focus, input[type=tel]:focus,
+textarea:focus, select:focus, .vTextField:focus {
+    border-color: #999;
+}
+
+select {
+    height: 30px;
+}
+
+select[multiple] {
+    min-height: 150px;
+}
+
+/* FORM BUTTONS */
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #79aec8;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+a.button {
+    padding: 4px 5px;
+}
+
+.button:active, input[type=submit]:active, input[type=button]:active,
+.button:focus, input[type=submit]:focus, input[type=button]:focus,
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: #609ab6;
+}
+
+.button[disabled], input[type=submit][disabled], input[type=button][disabled] {
+    opacity: 0.4;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    float: right;
+    border: none;
+    font-weight: 400;
+    background: #417690;
+}
+
+.button.default:active, input[type=submit].default:active,
+.button.default:focus, input[type=submit].default:focus,
+.button.default:hover, input[type=submit].default:hover {
+    background: #205067;
+}
+
+.button[disabled].default,
+input[type=submit][disabled].default,
+input[type=button][disabled].default {
+    opacity: 0.4;
+}
+
+/* MESSAGES & ERRORS */
+
+ul.messagelist {
+    padding: 0;
+    margin: 0;
+}
+
+ul.messagelist li {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    padding: 10px 10px 10px 65px;
+    margin: 0 0 10px 0;
+    background: #dfd url(../img/icon-yes.svg) 40px 12px no-repeat;
+    background-size: 16px auto;
+    color: #333;
+}
+
+ul.messagelist li.warning {
+    background: #ffc url(../img/icon-alert.svg) 40px 14px no-repeat;
+    background-size: 14px auto;
+}
+
+ul.messagelist li.error {
+    background: #ffefef url(../img/icon-no.svg) 40px 12px no-repeat;
+    background-size: 16px auto;
+}
+
+.errornote {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    padding: 10px 12px;
+    margin: 0 0 10px 0;
+    color: #ba2121;
+    border: 1px solid #ba2121;
+    border-radius: 4px;
+    background-color: #fff;
+    background-position: 5px 12px;
+}
+
+ul.errorlist {
+    margin: 0 0 4px;
+    padding: 0;
+    color: #ba2121;
+    background: #fff;
+}
+
+ul.errorlist li {
+    font-size: 13px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+ul.errorlist li:first-child {
+    margin-top: 0;
+}
+
+ul.errorlist li a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+td ul.errorlist {
+    margin: 0;
+    padding: 0;
+}
+
+td ul.errorlist li {
+    margin: 0;
+}
+
+.form-row.errors {
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid #eee;
+    background: none;
+}
+
+.form-row.errors ul.errorlist li {
+    padding-left: 0;
+}
+
+.errors input, .errors select, .errors textarea {
+    border: 1px solid #ba2121;
+}
+
+div.system-message {
+    background: #ffc;
+    margin: 10px;
+    padding: 6px 8px;
+    font-size: .8em;
+}
+
+div.system-message p.system-message-title {
+    padding: 4px 5px 4px 25px;
+    margin: 0;
+    color: #c11;
+    background: #ffefef url(../img/icon-no.svg) 5px 5px no-repeat;
+}
+
+.description {
+    font-size: 12px;
+    padding: 5px 0 0 12px;
+}
+
+
+@media(max-width:650px){
+	.frame_artical{
+		margin:0 5px 20px 5px;
+		padding:15px;
+		overflow:hidden;
+	}
+	.code{
+		margin-left:-15px;
+		margin: auto;
+		padding: 10px;
+		letter-spacing: normal;
+	}
+	
+}

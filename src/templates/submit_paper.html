@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block head_title %}Submit Paper | {{ block.super }}{% endblock %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+{% endblock %}
+
+{% block content %}
+<div class="frame_artical">
+	<p>
+		Welcome {{ user.username }}
+		<br>
+		<a href="/view_paper">View Paper</a>
+		<br>
+		<br>
+		<form enctype="multipart/form-data" action="" method="post">
+			{% csrf_token %}
+			<fieldset class="module aligned ">
+	    		<div class="form-row field-name">
+					<label class="required" for="id_name">Name:</label>
+	                {{ record.name }}
+	            </div>
+		        <div class="form-row field-email">
+		            <label class="required" for="id_email">Email:</label>
+		            {{ record.email }}
+		        </div>
+		        <div class="form-row field-mobileNumber">
+		            <label class="required" for="id_mobileNumber">Mobile Number:</label>
+		            {{ record.mobileNumber }}
+		        </div>
+		        <div class="form-row field-title">
+            		<label class="required" for="id_title">Title:</label>
+                    {{ record.title }}
+                </div>
+                <div class="form-row field-body">
+            		<label class="required" for="id_body">Body:</label>
+                    {{ record.body }}
+                </div>
+		        <div class="form-row field-file">
+		            <label class="required" for="id_file">File:</label>
+		            {{ record.file }}
+		        </div>
+			</fieldset>
+			<div class="submit-row">
+				<input type="submit" value="Save" class="default" name="_save">
+			</div>
+		</form>
+	</p>
+</div>
+{% endblock %}
