@@ -23,17 +23,17 @@ from conference.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home),
-    path('login',login),
-    path('signup',signup),
-    path('logout',logout),
-    path('feedback',feedback),
+    path('',home, name='home'),
+    path('login',login, name='login'),
+    path('signup',signup, name='signup'),
+    path('logout',logout, name='logout'),
+    path('feedback',feedback, name='feedback'),
 
-    path('spreadingnumber',spreadingnumber),
+    path('spreadingnumber',spreadingnumber, name='spreadingnumber'),
 
-    path('welcome',welcome),
-    path('view_paper',view_paper),
-    path('submit_paper',submit_paper),
+    path('welcome',welcome, name='welcome'),
+    path('view_paper',view_paper, name='view_paper'),
+    path('submit_paper',submit_paper, name='submit_paper'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

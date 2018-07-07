@@ -12,7 +12,7 @@
 	<p>
 		Welcome {{ user.username }}
 		<br>
-		<a href="/view_paper">View Paper</a>
+		<a href="{% url 'view_paper' %}">View Paper</a>
 		<br>
 		<br>
 		<form enctype="multipart/form-data" action="" method="post">

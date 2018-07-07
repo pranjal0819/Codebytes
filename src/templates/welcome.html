@@ -10,11 +10,11 @@
 {% block content %}
 <div class="frame_artical">
 	<p>
-		Welcome {{ user.username }}
+		Welcome {{ user.first_name }}
 		<br>
-		<a href="/view_paper">View Paper</a>
+		<a href="{% url 'view_paper' %}">View Paper</a>
 		<br>
-		<a href="/submit_paper">Submit Paper</a>
+		<a href="{% url 'submit_paper' %}">Submit Paper</a>
 		</form>
 	</p>
 </div>
