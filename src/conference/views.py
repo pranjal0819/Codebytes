@@ -12,7 +12,6 @@ def welcome(request):
 
 @login_required(login_url='/login')
 def view_paper(request):
-    print(request.user)
     if request.user.id in [1,6]:
         record = paperRecord.objects.all()
         if not record:

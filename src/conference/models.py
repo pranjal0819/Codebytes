@@ -15,4 +15,4 @@ class paperRecord(models.Model):
 
 	def __str__(self):
 		date = str(self.timestamp.day)+"/"+str(self.timestamp.month)
-		return self.name+" -- "+title
+		return self.name+" -- "+self.title
