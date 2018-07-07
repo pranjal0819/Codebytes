@@ -1,3 +1,0 @@
-handshaking lema
-	Ed = d0 + d1 + d2 + ....= 2e
-
