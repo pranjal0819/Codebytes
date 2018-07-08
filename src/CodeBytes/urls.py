@@ -33,6 +33,7 @@ urlpatterns = [
 
     path('welcome',welcome, name='welcome'),
     path('view_paper',view_paper, name='view_paper'),
+    path('view_paper/<int:pk>/detail',view_detail, name='view_detail'),
     path('submit_paper',submit_paper, name='submit_paper'),
 ]
 if settings.DEBUG:

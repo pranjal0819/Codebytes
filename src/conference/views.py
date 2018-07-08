@@ -12,15 +12,20 @@ def welcome(request):
 
 @login_required(login_url='/login')
 def view_paper(request):
-    if request.user.id in [1,6]:
-        record = paperRecord.objects.all()
+    if request.user.is_staff:
+        record = paperRecord.objects.all().order_by('-timestamp') 
         if not record:
             messages.error(request,"No one submit any paper")
     else:
-        record = paperRecord.objects.filter(author=request.user.id)
+        record = list(paperRecord.objects.filter(author=request.user.id)).order_by('-timestamp')
         if not record:
             messages.error(request,"You have not submit any paper")
     return render(request,'view_paper.html',{'record':record})
+
+@login_required(login_url='/login')
+def view_detail(request, pk):
+    detail = paperRecord.objects.get(pk=pk)
+    return render(request,'detail.html',{'r':detail})
 
 @login_required(login_url='/login')
 def submit_paper(request):
