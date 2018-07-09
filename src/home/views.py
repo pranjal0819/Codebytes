@@ -47,6 +47,10 @@ def signup(request):
     return render(request, "signup.html", {'form': form})
 
 @login_required(login_url="login")
+def userprofile(request):
+    return render(request,"profile.html",{})
+
+@login_required(login_url="login")
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')

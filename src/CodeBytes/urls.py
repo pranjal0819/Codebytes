@@ -27,6 +27,7 @@ urlpatterns = [
     path('login',login, name='login'),
     path('signup',signup, name='signup'),
     path('logout',logout, name='logout'),
+    path('profile',userprofile, name='userprofile'),
     path('feedback',feedback, name='feedback'),
 
     path('spreadingnumber',spreadingnumber, name='spreadingnumber'),
