@@ -19,7 +19,7 @@ def login(request):
                     auth.login(request, user)
                     if 'next' in request.POST:
                         return redirect(request.POST.get('next'))
-                    return HttpResponseRedirect('/welcome')
+                    return HttpResponseRedirect("welcome")
                 else:
                     messages.error(request, "Username and password did not match")
             except auth.ObjectNotExist:
@@ -41,12 +41,12 @@ def signup(request):
             auth.models.User.objects.create_user(username=username.lower(),first_name=firstName,last_name=lastName,email=email.lower(),password=password)
 
             messages.success(request, 'user registration successfully.')
-            return HttpResponseRedirect('/signup')
+            return HttpResponseRedirect("signup")
     else:
         form = signupForm()
     return render(request, "signup.html", {'form': form})
 
-@login_required(login_url='/login')
+@login_required(login_url="login")
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
