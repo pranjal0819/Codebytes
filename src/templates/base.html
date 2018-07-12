@@ -23,12 +23,13 @@
 						<li>Welcome <a href="{% url 'welcome' %}">{{ user.first_name }}</a></li>
 					{% endif %}
 					<li><a href="{% url 'home' %}">Home</a></li>
-					<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
 					{% if user.is_authenticated %}
+						<li><a href="{% url 'userprofile' %}">Profile</a></li>
+						<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
 						<a href="{% url 'logout' %}" style="color: red">Logout</a>
 					{% else %}
-						<li><a href="{% url 'login' %}">Login</a></li>
-						<li><a href="{% url 'signup' %}">Signup</a></li>
+						<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
+						<li><a href="{% url 'login' %}">Login</a>/<a href="{% url 'signup' %}">Signup</a></li>
 					{% endif %}
 				</ul>
 			</div>
@@ -48,9 +49,6 @@
 				<div class="frame_102">
 					<ul>
 						<li>Contact Us:<a href="mailto:pranjal0819@gmail.com"><font color="#1581C5">pranjal0819@gmail.com</font></a></li><br>
-						<li><a href="" target="_blank"><img src="" height="25px" alt="Google+"></a></li>
-						<li><a href="" target="_blank"><img src="" height="25px" alt="Facebook"></a></li>
-						<li><a href="" target="_blank"><img src="" height="25px" alt="Instagram"></a></li>
 					</ul>
 				</div>
 			</div>
