@@ -12,9 +12,14 @@
 	<p>
 		Welcome {{ user.username }}
 		<br>
-		<a href="{% url 'view_paper' %}">View Paper</a>
+		<a href="{% url 'conference:view_paper' %}">View Paper</a>
 		<br>
 		<br>
+		{% if messages %}
+			{% for m in messages %}
+				{{ m }}
+			{% endfor %}
+		{% endif %}
 		<form enctype="multipart/form-data" action="" method="post">
 			{% csrf_token %}
 			<fieldset class="module aligned ">

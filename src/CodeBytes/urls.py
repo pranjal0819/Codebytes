@@ -14,29 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from home.views import *
+from .views import *
 from pages.views import *
 from conference.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home, name='home'),
-    path('login',login, name='login'),
-    path('signup',signup, name='signup'),
-    path('logout',logout, name='logout'),
-    path('profile',userprofile, name='userprofile'),
     path('feedback',feedback, name='feedback'),
 
-    path('spreadingnumber',spreadingnumber, name='spreadingnumber'),
+    path('account/',include(('account.urls','account'), namespace='account')),
+    
+    path('page/',include(('pages.urls','pages'), namespace='pages')),
 
-    path('welcome',welcome, name='welcome'),
-    path('view_paper',view_paper, name='view_paper'),
-    path('view_paper/<int:pk>/detail',view_detail, name='view_detail'),
-    re_path('view_paper/(?P<pk>\d+)/detail/delete',delete_paper, name='delete_paper'),
-    path('submit_paper',submit_paper, name='submit_paper'),
+    path('conference/',include(('conference.urls','conference'), namespace='conference')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

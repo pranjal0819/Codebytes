@@ -20,16 +20,16 @@
 			<div class="frame_003">
 				<ul>
 					{% if user.is_authenticated %}
-						<li>Welcome <a href="{% url 'welcome' %}">{{ user.first_name }}</a></li>
+						<li>Welcome <a href="{% url 'conference:welcome' %}">{{ user.first_name }}</a></li>
 					{% endif %}
 					<li><a href="{% url 'home' %}">Home</a></li>
 					{% if user.is_authenticated %}
-						<li><a href="{% url 'userprofile' %}">Profile</a></li>
+						<li><a href="{% url 'account:userprofile' %}">Profile</a></li>
 						<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
-						<a href="{% url 'logout' %}" style="color: red">Logout</a>
+						<a href="{% url 'account:logout' %}" style="color: red">Logout</a>
 					{% else %}
 						<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
-						<li><a href="{% url 'login' %}">Login</a>/<a href="{% url 'signup' %}">Signup</a></li>
+						<li><a href="{% url 'account:login' %}">Login</a>/<a href="{% url 'account:signup' %}">Signup</a></li>
 					{% endif %}
 				</ul>
 			</div>

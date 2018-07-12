@@ -12,9 +12,9 @@
 	<p>
 		Welcome {{ user.first_name }}
 		<br>
-		<a href="{% url 'submit_paper' %}">Submit Paper</a>
+		<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>
 		<br>
-		<a href="{% url 'view_paper' %}">Back</a>
+		<a href="{% url 'conference:view_paper' %}">Back</a>
 		<br>
 		{% if message %}
 			<ul>
@@ -55,7 +55,7 @@
 		            <a href="/media/{{ r.file }}" target="_blank">{{ r.file }}</a>
 		        </div>
 			</fieldset>
-			<a href="{% url 'delete_paper' pk=r.pk %}">Delete</a>
+			<a href="{% url 'conference:delete_paper' pk=r.pk %}">Delete</a>
 		</form>
 		{% endif %}
 	</p>

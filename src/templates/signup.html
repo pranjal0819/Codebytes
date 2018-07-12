@@ -9,7 +9,7 @@
             <ul>
                 {% for m in messages %}
                 <li>
-                    {{ m }}<a href="/login"> Go to Login Page</a>
+                    {{ m }}<a href="{% url 'account:login' %}"> Go to Login Page</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -48,7 +48,7 @@
                 </div>
             <div class="submit-row">
                 <input type="submit" value="Signup" name="_save">
-                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'account:login' %}">Login</a>
             </div>
         </form>
     </div>

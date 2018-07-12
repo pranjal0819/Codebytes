@@ -1,13 +1,9 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponseRedirect
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
 from .forms import signupForm
 
 # Create your views here.
-def home(request):
-    return render(request, "index.html", {})
-
 def login(request):
     if request.method == 'POST':
         username = request.POST['user']
@@ -19,7 +15,7 @@ def login(request):
                     auth.login(request, user)
                     if 'next' in request.POST:
                         return redirect(request.POST.get('next'))
-                    return HttpResponseRedirect("welcome")
+                    return redirect("conference:welcome")
                 else:
                     messages.error(request, "Username and password did not match")
             except auth.ObjectNotExist:
@@ -41,19 +37,16 @@ def signup(request):
             auth.models.User.objects.create_user(username=username.lower(),first_name=firstName,last_name=lastName,email=email.lower(),password=password)
 
             messages.success(request, 'user registration successfully.')
-            return HttpResponseRedirect("signup")
+            return redirect("account:signup")
     else:
         form = signupForm()
     return render(request, "signup.html", {'form': form})
 
-@login_required(login_url="login")
+@login_required(login_url="account:login")
 def userprofile(request):
     return render(request,"profile.html",{})
 
-@login_required(login_url="login")
+@login_required(login_url="account:login")
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect('/')
-
-def feedback(request):
-    return render(request, "index.html", {})
+    return redirect("home")

@@ -12,9 +12,9 @@
 	<p>
 		Welcome {{ user.first_name }}
 		<br>
-		<a href="{% url 'view_paper' %}">View Paper</a>
+		<a href="{% url 'conference:view_paper' %}">View Paper</a>
 		<br>
-		<a href="{% url 'submit_paper' %}">Submit Paper</a>
+		<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>
 		</form>
 	</p>
 </div>
