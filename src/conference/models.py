@@ -16,3 +16,12 @@ class paperRecord(models.Model):
 	def __str__(self):
 		date = str(self.timestamp.day)+"/"+str(self.timestamp.month)
 		return self.name+" -- "+self.title
+
+class reviewPaper(models.Model):
+	currentUser = models.ForeignKey(User,on_delete=models.PROTECT,null=True)
+	paper 		= models.ManyToManyField(paperRecord)
+
+	def __str__(self):
+		return str(self.paper)
+	
+		

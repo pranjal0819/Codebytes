@@ -3,12 +3,19 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import submitPaper
-from .models import paperRecord
+from .models import *
 
 # Create your views here.
 @login_required(login_url="account:login")
 def welcome(request):
-    return render(request, 'welcome.html', {})
+    try:
+        record = reviewPaper.objects.filter(currentUser=request.user)
+        print(record)
+        record2 = record
+    except:
+        print("vdvdf")
+        record2 = None
+    return render(request, 'welcome.html', {'record':record2})
 
 @login_required(login_url="account:login")
 def view_paper(request):

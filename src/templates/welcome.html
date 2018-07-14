@@ -15,7 +15,12 @@
 		<a href="{% url 'conference:view_paper' %}">View Paper</a>
 		<br>
 		<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>
-		</form>
 	</p>
+	<form>
+		{% for r in record.paperRecord %}
+			{{ r.author }}
+			
+		{% endfor %}
+	</form>
 </div>
 {% endblock %}
