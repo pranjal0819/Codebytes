@@ -2,20 +2,40 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import submitPaper
-from .models import *
+from .forms import submitPaperForm, reviewPaperForm
+from .models import paperRecord, commentOnPaper
 
 # Create your views here.
 @login_required(login_url="account:login")
 def welcome(request):
+    record = commentOnPaper.objects.filter(commentuser=request.user)
+    recordList=[]
+    if not record:
+        messages.error(request,"No paper to review")
+    for r in record:
+        list=paperRecord.objects.filter(pk=int('0'+r.paper))
+        recordList.append(list[0])
+    return render(request, 'welcome.html', {'record':recordList})
+
+@login_required(login_url="account:login")
+def review_paper(request,pk):
     try:
-        record = reviewPaper.objects.filter(currentUser=request.user)
-        print(record)
-        record2 = record
+        view = commentOnPaper.objects.get(commentuser=request.user, pk=pk)
+        paper = paperRecord.objects.get(pk=pk)
+        if request.method == 'POST':
+            review = reviewPaperForm(request.POST)
+            if review.is_valid():
+                view.comment = review.cleaned_data['comment']
+                view.save(update_fields=['comment'])
+                return redirect("conference:welcome")
+        else:
+            review = reviewPaperForm()
     except:
-        print("vdvdf")
-        record2 = None
-    return render(request, 'welcome.html', {'record':record2})
+        messages.error(request,"There is no paper")
+        paper = None
+        review = None
+        view =None
+    return render(request,'review_paper.html',{'paper':paper, 'viewComment':viewComment, 'c':review})
 
 @login_required(login_url="account:login")
 def view_paper(request):
@@ -50,7 +70,7 @@ def delete_paper(request, pk):
 @login_required(login_url="account:login")
 def submit_paper(request):
     if request.method == 'POST':
-        record = submitPaper(request.POST,request.FILES)
+        record = submitPaperForm(request.POST,request.FILES)
         if record.is_valid():
             temp=record.save(commit=False)
             temp.author = request.user
@@ -58,6 +78,6 @@ def submit_paper(request):
             messages.success(request,"Paper submited successfuly")
             return redirect("conference:submit_paper")
     else:
-        record = submitPaper()
+        record = submitPaperForm()
     return render(request, 'submit_paper.html',{'record':record})
 

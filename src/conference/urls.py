@@ -7,4 +7,5 @@ urlpatterns = [
     path('view_paper/<int:pk>/detail',view_detail, name='view_detail'),
     re_path('view_paper/(?P<pk>\d+)/detail/delete',delete_paper, name='delete_paper'),
     path('submit_paper',submit_paper, name='submit_paper'),
+    path('review_paper/<int:pk>',review_paper, name='review_paper'),
 ]

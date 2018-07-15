@@ -3,4 +3,4 @@ from .models import *
 
 # Register your models here.
 admin.site.register(paperRecord)
-admin.site.register(reviewPaper)
+admin.site.register(commentOnPaper)

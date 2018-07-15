@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block head_title %}Detail | {{ block.super }}{% endblock %}
+{% block head_title %}Review Paper | {{ block.super }}{% endblock head_title %}
 
 {% block css %}
 	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
@@ -17,36 +17,34 @@
 	{% if messages %}
 		{% for m in messages %}{{ m }}<br>{% endfor %}
 	{% endif %}
-	{% if r is not None %}
-	<form action="" method="post"><input type="hidden">{% csrf_token %}
+	{% if paper is not None %}
+	<form method="POST" action="">{% csrf_token %}
 		<fieldset class="module aligned ">
-    		<div class="form-row field-name">
-				<label class="required" for="id_name">Name:</label>
-                {{ r.name }}
-            </div>
-	        <div class="form-row field-email">
-	            <label class="required" for="id_email">Email:</label>
-	            {{ r.email }}
-	        </div>
-	        <div class="form-row field-mobileNumber">
-	            <label class="required" for="id_mobileNumber">Mobile Number:</label>
-	            {{ r.mobileNumber }}
-	        </div>
-	        <div class="form-row field-title">
+			<div class="form-row field-title">
         		<label class="required" for="id_title">Title:</label>
-                {{ r.title }}
+                {{ paper.title }}
             </div>
             <div class="form-row field-body">
         		<label class="required" for="id_body">Body:</label>
-                {{ r.body }}
+                {{ paper.body }}
             </div>
 	        <div class="form-row field-file">
 	            <label class="required" for="id_file">File:</label>
-	            <a href="/media/{{ r.file }}" target="_blank">{{ r.file }}</a>
+	            <a href="/media/{{ paper.file }}" target="_blank">{{ paper.file }}</a>
 	        </div>
+	        <div class="form-row field-body">
+				<label class="required" for="id_comment">Previous Comment:</label>
+				{{ viewComment.comment }}
+			</div>
+	        <div class="form-row field-body">
+				<label class="required" for="id_comment">Comment:</label>
+				{{ c.comment }}
+			</div>
 		</fieldset>
-		<a href="{% url 'conference:delete_paper' pk=r.pk %}">Delete</a>
+		<div class="submit-row">
+			<input type="submit" value="Save" class="default" name="_save">
+		</div>
 	</form>
 	{% endif %}
 </div>
-{% endblock %}
+{% endblock  %}
