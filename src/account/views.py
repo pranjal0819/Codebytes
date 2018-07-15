@@ -43,10 +43,18 @@ def signup(request):
     return render(request, "signup.html", {'form': form})
 
 @login_required(login_url="account:login")
-def userprofile(request):
-    return render(request,"profile.html",{})
-
-@login_required(login_url="account:login")
 def logout(request):
     auth.logout(request)
     return redirect("home")
+
+@login_required(login_url="account:login")
+def profile(request):
+    return render(request,"profile.html",{})
+
+@login_required(login_url="account:login")
+def edit_profile(request):
+    return render(request,"profile.html",{})
+
+@login_required(login_url="account:login")
+def change_password(request):
+    return render(request,"profile.html",{})

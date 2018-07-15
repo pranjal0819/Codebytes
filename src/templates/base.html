@@ -24,7 +24,7 @@
 			{% endif %}
 				<li><a href="{% url 'home' %}">Home</a></li>
 			{% if user.is_authenticated %}
-				<li><a href="{% url 'account:userprofile' %}">Profile</a></li>
+				<li><a href="{% url 'account:profile' %}">Profile</a></li>
 				<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
 				<li><a href="{% url 'account:logout' %}" style="color: red">Logout</a></li>
 			{% else %}

@@ -23,4 +23,4 @@ class commentOnPaper(models.Model):
 	comment = models.TextField(default=None)
 
 	def __str__(self):
-		return str(self.commentuser)+" -- "+self.paper
+		return str(self.user)+" -- "+self.paper

@@ -3,7 +3,10 @@
 {% block head_title %}Profile | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-	<div class="frame_artical">
-		cgchfjhfh
-	</div>
+<div class="frame_artical">
+	User Name: {{ user.username }}<br>
+	First Name: {{ user.first_name }}<br>
+	Last Name: {{ user.last_name }}<br>
+	Email: {{ user.email }}<br>
+</div>
 {% endblock  %}
