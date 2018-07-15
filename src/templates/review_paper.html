@@ -13,37 +13,33 @@
 	{% if user.is_staff %}<h3>You login as a Staff</h3>{% endif %}
 	<a href="{% url 'conference:welcome' %}">Conference Page</a><br>
 	<a href="{% url 'conference:view_paper' %}">View Paper</a><br>
-	{% if not user.is_staff %}<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>{% endif %}<br><br>
-	{% if messages %}
-		{% for m in messages %}{{ m }}<br>{% endfor %}
-	{% endif %}
+	{% if not user.is_staff %}<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>{% endif %}<br>
+	{% if messages %}{% for m in messages %}{{ m }}<br>{% endfor %}{% endif %}
 	{% if paper is not None %}
 	<form method="POST" action="">{% csrf_token %}
-		<fieldset class="module aligned ">
-			<div class="form-row field-title">
-        		<label class="required" for="id_title">Title:</label>
-                {{ paper.title }}
-            </div>
-            <div class="form-row field-body">
-        		<label class="required" for="id_body">Body:</label>
-                {{ paper.body }}
-            </div>
-	        <div class="form-row field-file">
-	            <label class="required" for="id_file">File:</label>
-	            <a href="/media/{{ paper.file }}" target="_blank">{{ paper.file }}</a>
-	        </div>
-	        <div class="form-row field-body">
-				<label class="required" for="id_comment">Previous Comment:</label>
-				{{ viewComment.comment }}
-			</div>
-	        <div class="form-row field-body">
-				<label class="required" for="id_comment">Comment:</label>
-				{{ c.comment }}
-			</div>
-		</fieldset>
-		<div class="submit-row">
-			<input type="submit" value="Save" class="default" name="_save">
+	<fieldset class="module aligned ">
+		<div class="form-row field-title">
+    		<label class="required" for="id_title">Title:</label>
+            {{ paper.title }}
+        </div>
+        <div class="form-row field-body">
+    		<label class="required" for="id_body">Body:</label>
+            {{ paper.body }}
+        </div>
+        <div class="form-row field-file">
+            <label class="required" for="id_file">File:</label>
+            <a href="/media/{{ paper.file }}" target="_blank">{{ paper.file }}</a>
+        </div>
+        <div class="form-row field-body">
+			<label class="required" for="id_comment">Previous Comment:</label>
+			{{ viewComment.comment }}
 		</div>
+        <div class="form-row field-body">
+			<label class="required" for="id_comment">Comment:</label>
+			{{ c.comment }}
+		</div>
+	</fieldset>
+	<div class="submit-row"><input type="submit" value="Save" class="default" name="_save"></div>
 	</form>
 	{% endif %}
 </div>

@@ -5,9 +5,7 @@
 {% block content %}
 <div class="frame_artical">
     <h1>Login</h1>{% if request.GET.next %}<h5>Required</h5>{% endif %}
-    {% if messages %}
-        {% for m in messages %}{{ m }}<br>{% endfor %}
-    {% endif %}
+    {% if messages %}{% for m in messages %}{{ m }}<br>{% endfor %}{% endif %}
     <form method="post" action="">{% csrf_token %}
         <label>Username</label>
         <input type="text" name="user" placeholder="Username"></input><br>

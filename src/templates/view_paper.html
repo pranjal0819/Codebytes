@@ -14,29 +14,25 @@
 	<a href="{% url 'conference:welcome' %}">Conference Page</a><br>
 	<a href="{% url 'conference:view_paper' %}">View Paper</a><br>
 	{% if not user.is_staff %}<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>{% endif %}<br><br>
-	<form action="" method="post"><input type="hidden">
-		{% csrf_token %}
-		{% if messages %}
-			{% for m in messages %}{{ m }}<br>{% endfor %}
-        {% else %}
-			<h1><b>List of Paper</b></h1>
-		{% endif %}
-		{% for r in record %}
-			<fieldset class="module aligned ">
-				{{ r.pk }}				
-	    		<div class="form-row field-name">
-					<label class="required" for="id_name">Author Name:</label>
-	                {{ r.name }}
-	            </div>
-		        <div class="form-row field-title">
-            		<label class="required" for="id_title">Title:</label>
-                    <a href="{% url 'conference:view_detail' pk=r.pk %}">{{ r.title }}</a>
-                </div>
-                <div class="form-row field-title">
-            		<a href="{% url 'conference:view_detail' pk=r.pk %}">View Detatil</a>
-                </div>
-			</fieldset>
-		{% endfor %}
-	</form>
+	{% if messages %}
+		{% for m in messages %}{{ m }}<br>{% endfor %}
+    {% else %}
+		<h1><b>List of Paper</b></h1>
+	{% endif %}
+	{% for r in record %}
+		<fieldset class="module aligned ">			
+    		<div class="form-row field-name">
+				<label class="required" for="id_name">Author Name:</label>
+                {{ r.name }}
+            </div>
+	        <div class="form-row field-title">
+        		<label class="required" for="id_title">Title:</label>
+                <a href="{% url 'conference:view_detail' pk=r.pk %}">{{ r.title }}</a>
+            </div>
+            <div class="form-row field-title">
+        		<a href="{% url 'conference:view_detail' pk=r.pk %}">View Detatil</a>
+            </div>
+		</fieldset>
+	{% endfor %}
 </div>
 {% endblock %}

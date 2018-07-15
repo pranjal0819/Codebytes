@@ -3,53 +3,53 @@
 {% block head_title %}Signup | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-    <div class="frame_artical">
-        <h1>Signup</h1>
-        {% if messages %}
+<div class="frame_artical">
+    <h1>Signup</h1>
+    {% if messages %}
+        {% for m in messages %}
+            {{ m }}
+        {% endfor %}
+        <a href="{% url 'account:login' %}"> Go to Login Page</a>
+    {% endif %}
+    <form method="post" action="">{% csrf_token %}
+        <div>
+            <label>Username:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div>
+            <label>First Name:</label>
+            {{ form.first_name }}
+        </div>
+        <div>
+            <label for="id_lastName">Last Name:</label>
+            {{ form.last_name }}
+        </div>
+        <div>
+            <label class="required" for="id_email">Email:</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+        <div>
+            <label class="required" for="id_password">Password:</label>
+            {{ form.password }}
+            {{ form.password.errors }}
             <ul>
-                {% for m in messages %}
-                <li>
-                    {{ m }}<a href="{% url 'account:login' %}"> Go to Login Page</a>
-                </li>
-                {% endfor %}
+                <li>Your password can&#39;t be too similar to your other personal information.</li>
+                <li>Your password must contain at least 8 characters.</li>
+                <li>Your password can&#39;t be a commonly used password.</li>
+                <li>Your password can&#39;t be entirely numeric.</li>
             </ul>
-
-        {% endif %}
-        <form method="post" action="">
-            {% csrf_token %}
-                <div class="form-row field-username">
-                    <label class="required" for="id_username">Username:</label>
-                    {{ form.username }}
-                    {{ form.username.errors }}
-                </div>
-                <div class="form-row field-firstName">
-                    <label class="required" for="id_firstName">First Name:</label>
-                    {{ form.first_name }}
-                </div>
-                <div class="form-row field-lastName">
-                    <label for="id_lastName">Last Name:</label>
-                    {{ form.last_name }}
-                </div>
-                <div class="form-row field-email">
-                    <label class="required" for="id_email">Email:</label>
-                    {{ form.email }}
-                    {{ form.email.errors }}
-                </div>
-                <div class="form-row field-password">
-                    <label class="required" for="id_password">Password:</label>
-                    {{ form.password }}
-                    {{ form.password.errors }}
-                    <div class="help"><ul><li>Your password can&#39;t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can&#39;t be a commonly used password.</li><li>Your password can&#39;t be entirely numeric.</li></ul></div>
-                </div>
-                <div class="form-row field-password">
-                    <label class="required" for="id_confirm_password">Confirm password:</label>
-                    {{ form.confirm_password }}
-                    {{ form.confirm_password.errors }}
-                </div>
-            <div class="submit-row">
-                <input type="submit" value="Signup" name="_save">
-                <a href="{% url 'account:login' %}">Login</a>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div>
+            <label class="required" for="id_confirm_password">Confirm password:</label>
+            {{ form.confirm_password }}
+            {{ form.confirm_password.errors }}
+        </div>
+        <div>
+            <input type="submit" value="Signup" name="_save">
+            <a href="{% url 'account:login' %}">Login</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

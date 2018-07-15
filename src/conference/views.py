@@ -8,7 +8,7 @@ from .models import paperRecord, commentOnPaper
 # Create your views here.
 @login_required(login_url="account:login")
 def welcome(request):
-    record = commentOnPaper.objects.filter(commentuser=request.user)
+    record = commentOnPaper.objects.filter(user=request.user)
     recordList=[]
     if not record:
         messages.error(request,"No paper to review")
@@ -20,7 +20,7 @@ def welcome(request):
 @login_required(login_url="account:login")
 def review_paper(request,pk):
     try:
-        view = commentOnPaper.objects.get(commentuser=request.user, pk=pk)
+        view = commentOnPaper.objects.get(user=request.user, pk=pk)
         paper = paperRecord.objects.get(pk=pk)
         if request.method == 'POST':
             review = reviewPaperForm(request.POST)
@@ -59,7 +59,7 @@ def view_detail(request, pk):
     except:
         messages.error(request,"There is no paper")
         detail = None
-    return render(request,'detail.html',{'r':detail})
+    return render(request,'detail.html',{'record':detail})
 
 @login_required(login_url="account:login")
 def delete_paper(request, pk):

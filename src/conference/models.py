@@ -18,9 +18,9 @@ class paperRecord(models.Model):
 		return self.name+" -- "+self.title
 
 class commentOnPaper(models.Model):
-	commentuser = models.ForeignKey(User,on_delete=models.PROTECT,default=None)
-	paper 		= models.CharField(max_length=20)
-	comment     = models.TextField(default=None)
+	user 	= models.ForeignKey(User,on_delete=models.PROTECT,default=None)
+	paper 	= models.CharField(max_length=20)
+	comment = models.TextField(default=None)
 
 	def __str__(self):
 		return str(self.commentuser)+" -- "+self.paper

@@ -13,27 +13,27 @@
 </head>
 <body>
 	<header>
-		<div class="frame_001">
-			<div class="frame_002">
-				<a href="{% url 'home' %}"><h1>CodeBytes</h1><h3>Intresting Facts</h3></a>
-			</div>
-			<div class="frame_003">
-				<ul>
-					{% if user.is_authenticated %}
-						<li>Welcome {{ user.first_name }}</li>
-					{% endif %}
-					<li><a href="{% url 'home' %}">Home</a></li>
-					{% if user.is_authenticated %}
-						<li><a href="{% url 'account:userprofile' %}">Profile</a></li>
-						<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
-						<a href="{% url 'account:logout' %}" style="color: red">Logout</a>
-					{% else %}
-						<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
-						<li><a href="{% url 'account:login' %}">Login</a>/<a href="{% url 'account:signup' %}">Signup</a></li>
-					{% endif %}
-				</ul>
-			</div>
+	<div class="frame_001">
+		<div class="frame_002">
+			<a href="{% url 'home' %}"><h1>CodeBytes</h1><h3>Intresting Facts</h3></a>
 		</div>
+		<div class="frame_003">
+			<ul>
+			{% if user.is_authenticated %}
+				<li>Welcome <font color="#1581C5">{{ user.first_name }}</font></li>
+			{% endif %}
+				<li><a href="{% url 'home' %}">Home</a></li>
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'account:userprofile' %}">Profile</a></li>
+				<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
+				<li><a href="{% url 'account:logout' %}" style="color: red">Logout</a></li>
+			{% else %}
+				<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li>
+				<li><a href="{% url 'account:login' %}">Login</a>/<a href="{% url 'account:signup' %}">Signup</a></li>
+			{% endif %}
+			</ul>
+		</div>
+	</div>
 	</header>
 	<div class="frame_topic" style="clear:both;">
 	<!-- - - - - - - - - - START - - - - - - - - - - - - -->
@@ -41,28 +41,28 @@
 	<!-- - - - - - - - - - - END - - - - - - - - - - - -->
 	</div>
 	<footer style="clear:both;">
-		<div class="frame_104">
-			<div class="frame_105">
-				<div class="frame_101">
-					<a href="{% url 'home' %}"><h1>CodeBytes</h1><h3>Intresting Facts</h3></a>
-				</div>
-				<div class="frame_102">
-					<ul>
-						<li>Contact Us:<a href="mailto:pranjal0819@gmail.com"><font color="#1581C5">pranjal0819@gmail.com</font></a></li><br>
-					</ul>
-				</div>
+	<div class="frame_104">
+		<div class="frame_105">
+			<div class="frame_101">
+				<a href="{% url 'home' %}"><h1>CodeBytes</h1><h3>Intresting Facts</h3></a>
 			</div>
-			<div class="frame_103">
+			<div class="frame_102">
 				<ul>
-					<li><a href="">About Us</a></li><br>
-					<li><a href="{% url 'feedback' %}">Feedback</a></li><br>
-					<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li><br>
-					<li><a href="">Codebytes Team</a></li><br>
-					<li><a href="">Privacy Policy</a></li><br>
+					<li>Contact Us:<a href="mailto:pranjal0819@gmail.com"><font color="#1581C5">pranjal0819@gmail.com</font></a></li><br>
 				</ul>
 			</div>
 		</div>
-		<small>&copy; 2018 Codebytes Group. All Rights Reserved.</small>
+		<div class="frame_103">
+			<ul>
+				<li><a href="">About Us</a></li><br>
+				<li><a href="{% url 'feedback' %}">Feedback</a></li><br>
+				<li><a href="mailto:pranjal0819@gmail.com">Contact Us</a></li><br>
+				<li><a href="">Codebytes Team</a></li><br>
+				<li><a href="">Privacy Policy</a></li><br>
+			</ul>
+		</div>
+	</div>
+	<small>&copy; 2018 Codebytes Group. All Rights Reserved.</small>
 	</footer>
 </body>
 </html>
