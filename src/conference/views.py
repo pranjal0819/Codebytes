@@ -63,17 +63,20 @@ def view_detail(request, pk):
     return render(request,'detail.html',{'record':detail, 'userrecord':userrecord})
 
 @login_required(login_url="account:login")
-def select_user(request, pk, user):
+def select_user(request, paper_pk, user_pk):
     if request.user.is_staff:
-        user = request.user
         try:
-            commentOnPaper.objects.get(user=user ,paper=str(pk))
-            messages.error(request,"Already Assign this user")
+            user = auth.models.User.objects.get(id=user_pk)
+            try:
+                commentOnPaper.objects.get(user=user ,paper=str(paper_pk))
+                messages.error(request,"Already Assign this user")
+            except:
+                instance = commentOnPaper.objects.create(user=user, paper=str(paper_pk),comment="")
+                instance.save()
+                messages.success(request,"successfuly record save")
         except:
-            instance = commentOnPaper.objects.create(user=user, paper=str(pk),comment="")
-            instance.save()
-            messages.success(request,"successfuly record save")
-    return redirect("conference:view_detail",pk)
+            messages.success(request,"Lot of error")
+    return redirect("conference:view_detail",paper_pk)
 
 @login_required(login_url="account:login")
 def delete_paper(request, pk):
