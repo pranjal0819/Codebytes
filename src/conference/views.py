@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponseRedirect
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from .forms import submitPaperForm, reviewPaperForm
 from .models import paperRecord, commentOnPaper
@@ -35,7 +34,7 @@ def review_paper(request,pk):
         paper = None
         review = None
         view =None
-    return render(request,'review_paper.html',{'paper':paper, 'viewComment':viewComment, 'c':review})
+    return render(request,'review_paper.html',{'paper':paper, 'viewComment':view, 'c':review})
 
 @login_required(login_url="account:login")
 def view_paper(request):
@@ -52,14 +51,29 @@ def view_paper(request):
 @login_required(login_url="account:login")
 def view_detail(request, pk):
     try:
+        userrecord = None
         if request.user.is_staff:
             detail = paperRecord.objects.get(pk=pk)
+            userrecord = auth.models.User.objects.all()
         else:
             detail = paperRecord.objects.get(author=request.user.id,pk=pk)
     except:
         messages.error(request,"There is no paper")
         detail = None
-    return render(request,'detail.html',{'record':detail})
+    return render(request,'detail.html',{'record':detail, 'userrecord':userrecord})
+
+@login_required(login_url="account:login")
+def select_user(request, pk, user):
+    if request.user.is_staff:
+        user = request.user
+        try:
+            commentOnPaper.objects.get(user=user ,paper=str(pk))
+            messages.error(request,"Already Assign this user")
+        except:
+            instance = commentOnPaper.objects.create(user=user, paper=str(pk),comment="")
+            instance.save()
+            messages.success(request,"successfuly record save")
+    return redirect("conference:view_detail",pk)
 
 @login_required(login_url="account:login")
 def delete_paper(request, pk):

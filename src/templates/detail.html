@@ -47,5 +47,11 @@
 	</fieldset>
 	<a href="{% url 'conference:delete_paper' pk=record.pk %}">Delete</a>
 	{% endif %}
+    {% if userrecord is not None %}
+        <h3>List of User to selete for review</h3>
+        {% for r in userrecord %}
+            <a href="{% url 'conference:select_user' pk=record.pk user=r.username %}">{{ r.first_name }} {{ r.last_name }}</a><br>
+        {% endfor %} 
+    {% endif %}
 </div>
 {% endblock %}
