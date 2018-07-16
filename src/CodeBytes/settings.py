@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import os
+from .email import *
+
+EMAIL_USE_TLS = tls
+EMAIL_HOST = host
+EMAIL_HOST_USER = user
+EMAIL_HOST_PASSWORD = key 
+EMAIL_PORT = port
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
