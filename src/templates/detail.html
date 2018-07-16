@@ -47,6 +47,13 @@
 	</fieldset>
 	<a href="{% url 'conference:delete_paper' pk=record.pk %}">Delete</a>
 	{% endif %}
+    {% if commentrecord is not None %}
+        <h3>Review by other</h3>
+        {% for c in commentrecord %}
+            Name: {{ c.user.first_name }} {{ c.user.last_name }}<br>
+            Comment: {{ c.comment }}<br>
+        {% endfor %}
+    {% endif %}
     {% if userrecord is not None %}
         <h3>List of User to selete for review</h3>
         {% for r in userrecord %}

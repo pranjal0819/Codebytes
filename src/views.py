@@ -19,7 +19,7 @@ def welcome(request):
 @login_required(login_url="account:login")
 def review_paper(request,pk):
     try:
-        view = commentOnPaper.objects.get(user=request.user, paper=pk)
+        view = commentOnPaper.objects.get(user=request.user, pk=str(pk))
         paper = paperRecord.objects.get(pk=pk)
         if request.method == 'POST':
             review = reviewPaperForm(request.POST)
@@ -51,19 +51,16 @@ def view_paper(request):
 @login_required(login_url="account:login")
 def view_detail(request, pk):
     try:
+        userrecord = None
         if request.user.is_staff:
             detail = paperRecord.objects.get(pk=pk)
             userrecord = auth.models.User.objects.all()
         else:
             detail = paperRecord.objects.get(author=request.user.id,pk=pk)
-            userrecord = None
-        commentrecord = commentOnPaper.objects.filter(paper=pk)
     except:
         messages.error(request,"There is no paper")
         detail = None
-        userrecord = None
-        commentrecord = None
-    return render(request,'detail.html',{'record':detail, 'userrecord':userrecord, 'commentrecord':commentrecord})
+    return render(request,'detail.html',{'record':detail, 'userrecord':userrecord})
 
 @login_required(login_url="account:login")
 def select_user(request, paper_pk, user_pk):
@@ -74,8 +71,7 @@ def select_user(request, paper_pk, user_pk):
                 commentOnPaper.objects.get(user=user ,paper=str(paper_pk))
                 messages.error(request,"Already Assign this user")
             except:
-                instance = commentOnPaper.objects.create(user=user, paper=str(paper_pk),comment="No Comment")
-                instance.save()
+                instance = commentOnPaper.objects.create(user=user, paper=str(paper_pk),comment="")
                 messages.success(request,"successfuly record save")
         except:
             messages.success(request,"Lot of error")
@@ -100,3 +96,5 @@ def submit_paper(request):
     else:
         record = submitPaperForm()
     return render(request, 'submit_paper.html',{'record':record})
+
+
