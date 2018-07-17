@@ -1,6 +1,7 @@
 #for google
 
-tls = True
+tls  = True
+ssl  = False
 host = 'smtp.gmail.com'
 user = 'pranjal0819@gmail.com'
 key  = '*********'

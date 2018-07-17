@@ -53,7 +53,7 @@ def view_detail(request, pk):
     try:
         if request.user.is_staff:
             detail = paperRecord.objects.get(pk=pk)
-            userrecord = auth.models.User.objects.all()
+            userrecord = auth.models.User.objects.exclude(username=detail.author).filter(is_staff=False)
         else:
             detail = paperRecord.objects.get(author=request.user.id,pk=pk)
             userrecord = None

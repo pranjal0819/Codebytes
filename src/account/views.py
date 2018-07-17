@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
-from .forms import signupForm
+from .forms import signupForm, editProfile
 
 # Create your views here.
 def login(request):
@@ -38,6 +38,8 @@ def signup(request):
 
             messages.success(request, 'user registration successfully.')
             return redirect("account:signup")
+        else:
+            messages.error(request,"Please try again")
     else:
         form = signupForm()
     return render(request, "signup.html", {'form': form})
@@ -53,6 +55,30 @@ def profile(request):
 
 @login_required(login_url="account:login")
 def edit_profile(request):
+    if request.method == 'POST':
+        form = editProfile(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name  = form.cleaned_data['last_name']
+            email      = form.cleaned_data['email']
+            password   = form.cleaned_data['password']
+            user = auth.authenticate(username=request.user, password=password)
+            if user is not None:
+                user.first_name = first_name
+                user.last_name  = last_name
+                user.email      = email
+                user.save(update_fields=['first_name','last_name','email'])
+                messages.success(request,"Successfully profile updated")
+            else:
+                messages.error(request,"Password doesn't match")
+        else:
+            messages.error(request,"Please try again")
+    else:
+        form = editProfile()
+    return render(request,"editProfile.html",{'form':form})
+
+@login_required(login_url="account:login")
+def edit_username(request):
     return render(request,"profile.html",{})
 
 @login_required(login_url="account:login")

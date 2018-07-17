@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block head_title %}Edit Profile | {{ block.super }}{% endblock head_title %}
+
+{% block content %}
+<div class="frame_artical">
+	<h1>Edit Profile</h1>
+    {% if messages %}
+        {% for m in messages %}
+            {{ m }}
+        {% endfor %}
+        <a href="{% url 'home' %}"> Back to Home Page</a>
+    {% endif %}
+     <form method="post" action="">{% csrf_token %}
+        <div>
+            <label>First Name:</label>
+            {{ form.first_name }}
+        </div>
+        <div>
+            <label for="id_lastName">Last Name:</label>
+            {{ form.last_name }}
+        </div>
+        <div>
+            <label class="required" for="id_email">Email:</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+        <div>
+            <label class="required" for="id_password">Password:</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+        <div>
+            <input type="submit" name="_save">
+            <a href="{% url 'home' %}">Home</a>
+        </div>
+    </form>
+</div>
+{% endblock  %}
