@@ -62,15 +62,20 @@ def edit_profile(request):
             last_name  = form.cleaned_data['last_name']
             email      = form.cleaned_data['email']
             password   = form.cleaned_data['password']
-            user = auth.authenticate(username=request.user, password=password)
-            if user is not None:
-                user.first_name = first_name
-                user.last_name  = last_name
-                user.email      = email
-                user.save(update_fields=['first_name','last_name','email'])
-                messages.success(request,"Successfully profile updated")
+            match = auth.models.User.objects.filter(email=email.lower())
+            print(match)
+            if request.user.email == email or not match:
+                user = auth.authenticate(username=request.user, password=password)
+                if user is not None:
+                    user.first_name = first_name
+                    user.last_name  = last_name
+                    user.email      = email
+                    user.save(update_fields=['first_name','last_name','email'])
+                    messages.success(request,"Successfully profile updated")
+                else:
+                    messages.error(request,"Password doesn't match")
             else:
-                messages.error(request,"Password doesn't match")
+                messages.error(request,"Email already taken")
         else:
             messages.error(request,"Please try again")
     else:

@@ -59,8 +59,4 @@ class editProfile(forms.ModelForm):
             mt = validate_email(email)
         except:
             return forms.ValidationError("Email is not in correct format")
-        try:
-            match = models.User.objects.get(email=email.lower())
-        except:
-            return email
-        raise forms.ValidationError("Email already exits")
+        return email
