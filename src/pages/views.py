@@ -9,6 +9,8 @@ def email(request):
 	subject = 'Testing'
 	message = 'Hello, This mail is sent by your friend.'
 	sender  = 'pranjal0819@gmail.com'
-	recever = ['pranjal0819@gmail.com','pranjal.16bcs1112@abes.ac.in','nikhilarora1812@gmail.com']
-	send_mail(subject,message,sender,recever,fail_silently=False)
-	return redirect("home")
+	recever = ['pranjal0819@gmail.com']
+	print("pending")
+	send_mail('subject','message','pranjal0819@gmail.com',['pranjal0819@gmail.com'],fail_silently=False)
+	print("success")
+	return render(request,'index.html')
