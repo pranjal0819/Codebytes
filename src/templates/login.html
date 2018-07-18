@@ -1,23 +1,24 @@
 {% extends "base.html" %}
+{% load staticfiles%}
 
 {% block head_title %}Login | {{ block.super }}{% endblock head_title %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="frame_artical">
-    <h1>Login</h1>{% if request.GET.next %}<h5>Required</h5>{% endif %}
-    {% if messages %}{% for m in messages %}{{ m }}<br>{% endfor %}{% endif %}
+<div class="form">
+    <h2>Login To Your Account</h2>{% if request.GET.next %}<h2>Required</h2>{% endif %}
+    <h3>{% if messages %}{% for m in messages %}{{ m }}<br>{% endfor %}{% endif %}</h3>
     <form method="post" action="">{% csrf_token %}
-        <label>Username</label>
         <input type="text" name="user" placeholder="Username"></input><br>
-        <label>Password</label>
         <input type="password" name="pass" placeholder="Password"></input><br>
         {% if request.GET.next %}
             <input type="hidden" name="next" value="{{ request.GET.next }}">
         {% endif %}
-        <div class="submit-row">
-            <input type="submit" value="Login" name="_save">
-            <a href="{% url 'account:signup' %}">Signup</a>
-        </div>
+        <button type="submit">Login</button>
+        <a href="{% url 'account:signup' %}">Signup</a>
     </form>
 </div>
 {% endblock %}

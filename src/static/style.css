@@ -1,0 +1,68 @@
+body {
+    background-size: cover;
+    font-family: "Roboto";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+.form {
+    top: 30%;
+    left: 35%;
+    background: #fff;
+    width: 350px;
+    padding: 40px;
+    border-radius:15px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.form h2, .form a{
+    margin: 0 0 20px 0;
+    line-height: 1;
+    color: #1a8fd8;
+    font-size: 18px;
+    font-weight: 400;
+}
+.form h3 {
+    margin: 0 0 10px 0;
+    line-height: 1;
+    font-size: 16px;
+    font-weight: 400;
+}
+.form ul{
+    margin: -10px 0 20px 0;
+}
+.form ul li{
+    color: #ccc;
+}
+.form input {
+    display: block;
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-weight: 400;
+    transition: 0.2s linear;
+    &input:focus {
+      color: #333;
+      border: 1px solid #44c4e7;
+    }
+}
+ul.errorlist{
+    margin-top: -20px;
+}
+ul.errorlist li{
+    color: #ec0e0e;
+}
+button {
+    background: #44c4e7;
+    width: 100%;
+    margin-bottom: 10px; 
+    padding: 10px 15px;
+    border: 0;
+    color: #fff;
+    font-weight: 400;
+    cursor: pointer;
+    &:hover {
+      background: #369cb8;
+    }
+}
