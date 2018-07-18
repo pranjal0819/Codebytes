@@ -6,10 +6,8 @@ body {
     font-size: 14px;
 }
 .form {
-    top: 30%;
-    left: 35%;
     background: #fff;
-    width: 350px;
+    width: 35%;
     padding: 40px;
     border-radius:15px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
@@ -64,5 +62,10 @@ button {
     cursor: pointer;
     &:hover {
       background: #369cb8;
+    }
+}
+@media(max-width:800px){
+    .form{
+        width: 70%;
     }
 }
