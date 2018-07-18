@@ -4,7 +4,12 @@
 }
 /* Body */
 body{
-	font:medium/1.6 Arial, Helvetica,sans-serif;
+	background-size: cover;
+    font-family: "Roboto";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+	
 	background-color: #f2f2f2;
 }
 /* Header */
