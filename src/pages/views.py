@@ -11,6 +11,6 @@ def email(request):
 	sender  = 'pranjal0819@gmail.com'
 	recever = ['pranjal0819@gmail.com']
 	print("pending")
-	send_mail('subject','message','pranjal0819@gmail.com',['pranjal0819@gmail.com'],fail_silently=False)
+	#send_mail('subject','message','pranjal0819@gmail.com',['pranjal0819@gmail.com'],fail_silently=False)
 	print("success")
 	return render(request,'index.html')

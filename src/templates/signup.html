@@ -11,7 +11,7 @@
 <div class="form">
     <h2>Signup</h2>
     <h3>{% if messages %}{% for m in messages %}{{ m }}{% endfor %}</h3>
-    <a href="{% url 'account:login' %}"> Go to Login Page</a>
+    <a href="{% url 'account:login' %}"> Go to Login Page</a><br><br>
     {% endif %}
     <form method="post" action="">{% csrf_token %}
         {{ form.username }}

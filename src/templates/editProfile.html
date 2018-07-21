@@ -1,39 +1,30 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block head_title %}Edit Profile | {{ block.super }}{% endblock head_title %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="frame_artical">
-	<h1>Edit Profile</h1>
-    {% if messages %}
-        {% for m in messages %}
-            {{ m }}
-        {% endfor %}
-        <a href="{% url 'home' %}"> Back to Home Page</a>
+<div class="form">
+	<h2>Edit Profile</h2>
+    {% if messages %}<h3>{% for m in messages %}{{ m }}{% endfor %}</h3>
+        <a href="{% url 'home' %}"> Back to Home</a><br><br>
     {% endif %}
      <form method="post" action="">{% csrf_token %}
-        <div>
-            <label>First Name:</label>
-            {{ form.first_name }}
-        </div>
-        <div>
-            <label for="id_lastName">Last Name:</label>
-            {{ form.last_name }}
-        </div>
-        <div>
-            <label class="required" for="id_email">Email:</label>
-            {{ form.email }}
-            {{ form.email.errors }}
-        </div>
-        <div>
-            <label class="required" for="id_password">Password:</label>
-            {{ form.password }}
-            {{ form.password.errors }}
-        </div>
-        <div>
-            <input type="submit" name="_save">
-            <a href="{% url 'home' %}">Home</a>
-        </div>
+        <label>First Name:</label>
+        {{ form.first_name }}
+        <label>Last Name:</label>
+        {{ form.last_name }}
+        <label>Email:</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+        <label>Password:</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+        <button type="submit">Save</button>
+        <a href="{% url 'home' %}">Back to Home</a>
     </form>
 </div>
 {% endblock  %}

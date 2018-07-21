@@ -5,21 +5,26 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-size: 14px;
 }
-.form {
-    background: #fff;
+.frame{
+    width: 85%;
+    padding: 40px;
+    border-radius:15px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.form{
     width: 35%;
     padding: 40px;
     border-radius:15px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 .form h2, .form a{
-    margin: 0 0 20px 0;
+    margin: 0 0 15px 0;
     line-height: 1;
     color: #1a8fd8;
     font-size: 18px;
     font-weight: 400;
 }
-.form h3 {
+.form h3, .form label{
     margin: 0 0 10px 0;
     line-height: 1;
     font-size: 16px;
@@ -51,7 +56,7 @@ ul.errorlist{
 ul.errorlist li{
     color: #ec0e0e;
 }
-button {
+button{
     background: #44c4e7;
     width: 100%;
     margin-bottom: 10px; 
@@ -60,9 +65,9 @@ button {
     color: #fff;
     font-weight: 400;
     cursor: pointer;
-    &:hover {
+}
+button:hover{
       background: #369cb8;
-    }
 }
 @media(max-width:800px){
     .form{

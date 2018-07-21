@@ -83,7 +83,7 @@ def edit_profile(request):
     return render(request,"editProfile.html",{'form':form})
 
 @login_required(login_url="account:login")
-def edit_username(request):
+def change_username(request):
     return render(request,"profile.html",{})
 
 @login_required(login_url="account:login")
