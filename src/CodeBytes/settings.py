@@ -129,6 +129,8 @@ STATICFILES_DIRS = os.path.join(BASE_DIR, "static"),
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+LOGIN_URL="/account/login"
+
 EMAIL_HOST = host
 EMAIL_PORT = port
 EMAIL_HOST_USER = user

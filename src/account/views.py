@@ -1,15 +1,23 @@
 from django.shortcuts import render,redirect
+from django.views.generic import TemplateView
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .forms import signupForm, editProfile
 
 # Create your views here.
-def login(request):
-    if request.method == 'POST':
+class login(TemplateView):
+    template_name = 'login.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+    def post(self, request):
         username = request.POST['user']
         password = request.POST['pass']
         if username is not "":
             try:
+                auth.models.User.objects.get(username=username.lower())
                 user = auth.authenticate(username=username.lower(), password=password)
                 if user is not None:
                     auth.login(request, user)
@@ -18,14 +26,20 @@ def login(request):
                     return redirect("conference:welcome")
                 else:
                     messages.error(request, "Username and password did not match")
-            except auth.ObjectNotExist:
+            except:
                 messages.error(request, "User does not exit")
         else:
             messages.error(request, "Enter Username and Password")
-    return render(request, "login.html", {})
+        return render(request, self.template_name, {})
 
-def signup(request):
-    if request.method == 'POST':
+class signup(TemplateView):
+    template_name = 'signup.html'
+
+    def get(self,request):
+        form = signupForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self,request):
         form = signupForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -40,22 +54,26 @@ def signup(request):
             return redirect("account:signup")
         else:
             messages.error(request,"Please try again")
-    else:
-        form = signupForm()
-    return render(request, "signup.html", {'form': form})
+        return render(request, self.template_name, {'form': form})
 
-@login_required(login_url="account:login")
 def logout(request):
     auth.logout(request)
     return redirect("home")
 
-@login_required(login_url="account:login")
-def profile(request):
-    return render(request,"profile.html",{})
+class profile(TemplateView):
+    template_name = 'profile.html'
 
-@login_required(login_url="account:login")
-def edit_profile(request):
-    if request.method == 'POST':
+    def get(self,request):
+        return render(request, self.template_name, {})
+
+class edit_profile(TemplateView):
+    template_name = 'editProfile.html'
+
+    def get(self, request):
+        form = editProfile()
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
         form = editProfile(request.POST)
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
@@ -63,7 +81,6 @@ def edit_profile(request):
             email      = form.cleaned_data['email']
             password   = form.cleaned_data['password']
             match = auth.models.User.objects.filter(email=email.lower())
-            print(match)
             if request.user.email == email or not match:
                 user = auth.authenticate(username=request.user, password=password)
                 if user is not None:
@@ -78,14 +95,16 @@ def edit_profile(request):
                 messages.error(request,"Email already taken")
         else:
             messages.error(request,"Please try again")
-    else:
-        form = editProfile()
-    return render(request,"editProfile.html",{'form':form})
+        return render(request, self.template_name, {'form':form})
 
-@login_required(login_url="account:login")
-def change_username(request):
-    return render(request,"profile.html",{})
+class change_username(TemplateView):
+    template_name = 'profile.html'
 
-@login_required(login_url="account:login")
-def change_password(request):
-    return render(request,"profile.html",{})
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+class change_password(TemplateView):
+    template_name = 'profile.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
