@@ -43,7 +43,7 @@ class signupForm(forms.ModelForm):
             else:
                 password_validation.validate_password(password2)
 
-class editProfile(forms.ModelForm):
+class editProfileForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, max_length=20)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False, max_length=30)
     email = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'abcd@gmail.com','pattern':'[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True, max_length=40)

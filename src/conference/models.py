@@ -24,3 +24,11 @@ class commentOnPaper(models.Model):
 
 	def __str__(self):
 		return str(self.user)+" -- "+self.paper
+
+class reviewPaper(models.Model):
+	user = models.ForeignKey(User, on_delete=models.PROTECT, null=True,  related_name='user')
+	paper = models.ForeignKey(paperRecord, on_delete=models.PROTECT, null=True,  related_name='paper')
+	comment = models.TextField()
+
+	def __str__(self):
+		return str(self.user)+" -- "+str(self.paper)

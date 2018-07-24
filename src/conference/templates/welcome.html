@@ -14,8 +14,8 @@
 	<a href="{% url 'conference:view_paper' %}">View Paper</a><br>
 	{% if not user.is_staff %}<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>{% endif %}<br><br>
 	<h2>List of Paper to Review</h2>
-	{% if messages %}
-		{% for m in messages %}{{ m }}<br>{% endfor %}
+    {% if not record %}
+    	<p>No paper to Review</p>
     {% else %}
 		{% for r in record %}
 			Author Name: {{ r.author }}<br>

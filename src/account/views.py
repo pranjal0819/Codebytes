@@ -1,9 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
-from django.contrib import messages,auth
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from .forms import signupForm, editProfile
+from django.contrib import messages, auth
+from .forms import signupForm, editProfileForm
 
 # Create your views here.
 class login(TemplateView):
@@ -70,11 +68,11 @@ class edit_profile(TemplateView):
     template_name = 'editProfile.html'
 
     def get(self, request):
-        form = editProfile()
+        form = editProfileForm()
         return render(request, self.template_name, {'form':form})
 
     def post(self, request):
-        form = editProfile(request.POST)
+        form = editProfileForm(request.POST)
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
             last_name  = form.cleaned_data['last_name']
