@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class Conference1Config(AppConfig):
+class ConferenceConfig(AppConfig):
     name = 'conference'
