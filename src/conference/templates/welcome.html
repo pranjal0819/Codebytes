@@ -14,14 +14,6 @@
 	<a href="{% url 'conference:view_paper' %}">View Paper</a><br>
 	{% if not user.is_staff %}<a href="{% url 'conference:submit_paper' %}">Submit Paper</a>{% endif %}<br><br>
 	<h2>List of Paper to Review</h2>
-    {% if not record %}
-    	<p>No paper to Review</p>
-    {% else %}
-		{% for r in record %}
-			Author Name: {{ r.author }}<br>
-			Title: <a href="{% url 'conference:review_paper' pk=r.pk %}">{{ r.title }}</a><br>
-			File: <a href="{% url 'conference:review_paper' pk=r.pk %}">Review Paper</a><br>
-		{% endfor %}
-	{% endif %}
+    
 </div>
 {% endblock %}

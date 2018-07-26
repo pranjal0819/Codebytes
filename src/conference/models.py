@@ -1,29 +1,31 @@
+from django.contrib.auth.models import User
 from django.db import models
 from datetime import date
-from django.contrib.auth.models import User
 
 # Create your models here.
-class paperRecord(models.Model):
-	name   		 = models.CharField(max_length=40)
-	email        = models.CharField(max_length=40)
+class authorRecord(models.Model):
+	name         = models.CharField(max_length=50)
+	email        = models.CharField(max_length=50)
 	mobileNumber = models.CharField(max_length=10)
-	title 		 = models.CharField(max_length=50)
-	body 	 	 = models.TextField()
-	file 		 = models.FileField(default='none.pdf')
-	timestamp	 = models.DateTimeField(auto_now_add=True)
-	author		 = models.ForeignKey(User,on_delete=models.PROTECT,default=None)
+	country      = models.CharField(max_length=50)
+	organization = models.CharField(max_length=100)
+	webpage      = models.URLField()
 
 	def __str__(self):
-		date = str(self.timestamp.day)+"/"+str(self.timestamp.month)
-		return self.name+" -- "+self.title
+		return str(self.name)
 
-class commentOnPaper(models.Model):
-	user 	= models.ForeignKey(User,on_delete=models.PROTECT,default=None)
-	paper 	= models.CharField(max_length=20)
-	comment = models.TextField(default=None)
+class paperRecord(models.Model):
+	title    = models.CharField(max_length=100)
+	abstract = models.TextField(max_length=500)
+	keywords = models.TextField(max_length=100)
+	file     = models.FileField()
+	status   = models.BooleanField()
+	timestamp= models.DateTimeField(auto_now_add=True)
+	user     = models.ForeignKey(User, on_delete=models.CASCADE)
+	author   = models.ManyToManyField(authorRecord)
 
 	def __str__(self):
-		return str(self.user)+" -- "+self.paper
+		return str(self.title)
 
 class reviewPaper(models.Model):
 	user = models.ForeignKey(User, on_delete=models.PROTECT, null=True,  related_name='user')

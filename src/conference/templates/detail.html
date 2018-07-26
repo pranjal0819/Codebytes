@@ -3,8 +3,7 @@
 {% block head_title %}Detail | {{ block.super }}{% endblock %}
 
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
-	<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+	
 {% endblock %}
 
 {% block content %}
@@ -19,46 +18,21 @@
 	{% endif %}
 	{% if record is not None %}
 	<h2>Detail of Paper:</h2>
-	<fieldset class="module aligned ">
-		<div class="form-row field-name">
-			<label class="required" for="id_name">Name:</label>
-            {{ record.name }}
-        </div>
-        <div class="form-row field-email">
-            <label class="required" for="id_email">Email:</label>
-            {{ record.email }}
-        </div>
-        <div class="form-row field-mobileNumber">
-            <label class="required" for="id_mobileNumber">Mobile Number:</label>
-            {{ record.mobileNumber }}
-        </div>
-        <div class="form-row field-title">
-    		<label class="required" for="id_title">Title:</label>
-            {{ record.title }}
-        </div>
-        <div class="form-row field-body">
-    		<label class="required" for="id_body">Body:</label>
-            {{ record.body }}
-        </div>
-        <div class="form-row field-file">
-            <label class="required" for="id_file">File:</label>
-            <a href="/media/{{ record.file }}" target="_blank">{{ record.file }}</a>
-        </div>
-	</fieldset>
-	<a href="{% url 'conference:delete_paper' pk=record.pk %}">Delete</a>
+    Author: {% for name in authorlist %}{{ name.name }}, {% endfor %}<br>
+    Email: {% for name in authorlist %}{{ name.email }}, {% endfor %}<br>
+    Mobile Number: {% for name in authorlist %}{{ name.mobileNumber }}, {% endfor %}<br>
+    Country: {% for name in authorlist %}{{ name.country }}, {% endfor %}<br>
+	Organization: {% for name in authorlist %}{{ name.organization }}, {% endfor %}<br>
+    URL: {% for name in authorlist %}{{ name.webpage }}, {% endfor %}<br>
+	
+    <br>
+    Title: {{ record.title }}<br>
+    Keywords: {{ record.keywords }}<br>
+    Abstract: {{ record.abstract }}<br>
+    File: <a href="/media/{{ record.file }}" target="_blank">{{ record.file }}</a><br>
+    Status: {{ record.status }}<br>
+    <a href="{% url 'conference:delete_paper' pk=record.pk %}">Delete</a>
+
 	{% endif %}
-    {% if commentrecord is not None %}
-        <h3>Review by other</h3>
-        {% for c in commentrecord %}
-            Name: {{ c.user.first_name }} {{ c.user.last_name }}<br>
-            Comment: {{ c.comment }}<br>
-        {% endfor %}
-    {% endif %}
-    {% if userrecord is not None %}
-        <h3>List of User to selete for review</h3>
-        {% for r in userrecord %}
-            <a href="{% url 'conference:select_user' paper_pk=record.pk user_pk=r.pk %}">Name: {{ r.first_name }} {{ r.last_name }}</a><br>
-        {% endfor %} 
-    {% endif %}
 </div>
 {% endblock %}

@@ -60,3 +60,21 @@ class editProfileForm(forms.ModelForm):
         except:
             return forms.ValidationError("Email is not in correct format")
         return email
+
+class changePasswordForm(forms.ModelForm):
+    current_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Current Password'}), required=True, max_length=20)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'New Password'}), required=True, max_length=20)
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}), required=True, max_length=20)
+
+    class Meta():
+        model  = models.User
+        fields = ['password']
+
+    def clean_confirm_password(self):
+        password1 = self.cleaned_data['password']
+        password2 = self.cleaned_data['confirm_password']
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError("Password does not match")
+            else:
+                password_validation.validate_password(password2)
