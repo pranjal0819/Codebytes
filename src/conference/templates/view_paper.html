@@ -45,7 +45,9 @@
 					<div class="cell">UUUUU</div>
 				{% endif %}
 				<div class="cell">{{ list.keywords }}</div>
-				<div class="cell">{{ list.status }}</div>
+				<div class="cell">{% if list.status %}Accepted
+								  {% else %}Not Accepted
+								  {% endif %}</div>
 				<div class="cell">{{ list.timestamp }}</div>
 			</div>
 			{% endfor %}

@@ -21,6 +21,7 @@ class paperRecord(models.Model):
 	file     = models.FileField()
 	status   = models.BooleanField()
 	timestamp= models.DateTimeField(auto_now_add=True)
+	update   = models.DateTimeField(auto_now=True)
 	user     = models.ForeignKey(User, on_delete=models.CASCADE)
 	author   = models.ManyToManyField(authorRecord)
 

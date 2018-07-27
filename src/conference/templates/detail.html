@@ -29,9 +29,11 @@
     Title: {{ record.title }}<br>
     Keywords: {{ record.keywords }}<br>
     Abstract: {{ record.abstract }}<br>
-    File: <a href="/media/{{ record.file }}" target="_blank">{{ record.file }}</a><br>
-    Status: {{ record.status }}<br>
-    <a href="{% url 'conference:delete_paper' pk=record.pk %}">Delete</a>
+    File: <a href="/media/{{ record.file }}" target="_blank">Download File</a><br>
+    Status: {% if record.status %}Accepted
+    		{% else %}Not Accepted
+    		{% endif %}<br>
+    <a href="{% url 'conference:delete_paper' pk=record.pk %}">Delete Paper</a>
 
 	{% endif %}
 </div>
