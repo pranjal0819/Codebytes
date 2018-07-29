@@ -1,5 +1,5 @@
 from django import forms
-from .models import paperRecord, authorRecord, reviewPaper
+from .models import PaperRecord, AuthorRecord, ReviewPaperRecord
 
 class authorRecordForm(forms.ModelForm):
     name 		 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}), max_length=50)
@@ -10,8 +10,8 @@ class authorRecordForm(forms.ModelForm):
     url 		 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'URL'}), max_length=50)
     
     class Meta():
-    	model  = authorRecord
-    	fields = ['name', 'email', 'mobileNumber', 'country', 'organization', 'url']
+        model  = AuthorRecord
+        fields = ['name', 'email', 'mobileNumber', 'country', 'organization', 'url']
 
 class paperRecordForm(forms.ModelForm):
     title 	 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title*'}), required=True, max_length=100)
@@ -20,12 +20,12 @@ class paperRecordForm(forms.ModelForm):
     file 	 = forms.FileField(widget=forms.ClearableFileInput(attrs={'accept':'.pdf,.doc', 'style':"border:none"}), required=True)
 
     class Meta():
-        model = paperRecord
+        model = PaperRecord
         fields = ['title', 'abstract', 'keywords', 'file']
 
 class reviewPaperForm(forms.ModelForm):
     comment = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Comment'}), required=True)
 
     class Meta():
-        model = reviewPaper
+        model = ReviewPaperRecord
         fields = ['comment']
