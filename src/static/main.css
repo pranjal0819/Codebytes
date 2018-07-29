@@ -54,7 +54,7 @@ header{
 }
 /* Frame */
 .frame_topic{
-	width: 76%;
+	width:100%;
 	background-color:#fff;
 	padding:25px 0;
 	display:flex;

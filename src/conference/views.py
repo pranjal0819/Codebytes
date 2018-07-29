@@ -11,8 +11,8 @@ class welcome(TemplateView):
     def get(self, request):
         return render(request, self.template_name, {})
 
-class view_paper(TemplateView):
-	template_name = 'view_paper.html'
+class view_all_paper(TemplateView):
+	template_name = 'view_all_paper.html'
 
 	def get(self, request):
 		if request.user.is_staff:
@@ -32,14 +32,22 @@ class select_user(TemplateView):
 		try:
 			if request.user.is_staff:
 				paper    = paperRecord.objects.get(pk=pk)
-				userlist = auth.models.User.objects.exclude(username=paper.author).filter(is_staff=False)
-				return render(request, self.template_name, {'userlist':userlist,'paper':paper})
+				userlist = auth.models.User.objects.exclude(username=paper.author).filter(is_superuser=False)
+				list1 = []
+				list2 = []
+				for user in userlist:
+					try:
+						reviewPaper.objects.get(user=user, paper=paper)
+						list1.append(user)
+					except:
+						list2.append(user)
+				return render(request, self.template_name, {'userlist':userlist,'paper':paper, 'list1':list1,'list2':list2})
 			else:
 				messages.error(request,"Lot of Error")
 				redirect("conference:welcome")
 		except:
 			messages.error(request,"Lot of error")
-			redirect("conference:view_paper")
+			redirect("conference:view_all_paper")
 
 class selected_user(TemplateView):
 
@@ -47,19 +55,20 @@ class selected_user(TemplateView):
 		if request.user.is_staff:
 			try:
 				user = auth.models.User.objects.get(pk=user_pk)
-				paper = paperRecord.get(pk=paper_pk)
+				paper = paperRecord.objects.get(pk=paper_pk)
+				print(user_pk, paper_pk)
 				try:
 					reviewPaper.objects.get(user=user ,paper=paper)
 					messages.error(request,"Already Assign this user")
 				except:
-					instance = reviewPaper.objects.create(user=user, paper=paper,comment="No Comment")
+					instance = reviewPaper.objects.create(user=user, paper=paper, overallEvaluation='', remark='', point=0)
 					instance.save()
 					messages.success(request,"successfuly record save")
 			except:
-				messages.error(request,"Lot of error")
-			return redirect("conference:view_detail",paper_pk)
+				messages.error(request,"Please Try again")
+			return redirect("conference:view_all_paper")
 		else:
-			messages.error(request,"Lot of error")
+			messages.error(request,"You are not a Chair Person")
 			return redirect("conference:welcome")
 
 class view_detail(TemplateView):
@@ -133,4 +142,4 @@ class delete_paper(TemplateView):
 		except:
 			messages.error(request,"Lot of error")
 			return redirect("conference:welcome")
-		return redirect("conference:view_paper")
+		return redirect("conference:view_all_paper")
