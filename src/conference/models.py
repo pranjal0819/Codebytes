@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import date
 
+
 # Create your models here.
 class AuthorRecord(models.Model):
     name = models.CharField(max_length=50)
@@ -22,7 +23,7 @@ class PaperRecord(models.Model):
     file = models.FileField()
     status = models.BooleanField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    update   = models.DateTimeField(auto_now=True)
+    update = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     author = models.ManyToManyField(AuthorRecord)
 

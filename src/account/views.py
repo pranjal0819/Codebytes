@@ -1,7 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib import messages, auth
 from .forms import signupForm, editProfileForm
+
 
 # Create your views here.
 class login(TemplateView):
@@ -30,14 +31,15 @@ class login(TemplateView):
             messages.error(request, "Enter Username and Password")
         return render(request, self.template_name, {})
 
+
 class signup(TemplateView):
     template_name = 'signup.html'
 
-    def get(self,request):
+    def get(self, request):
         form = signupForm()
         return render(request, self.template_name, {'form': form})
 
-    def post(self,request):
+    def post(self, request):
         form = signupForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -46,60 +48,66 @@ class signup(TemplateView):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            auth.models.User.objects.create_user(username=username.lower(),first_name=firstName,last_name=lastName,email=email.lower(),password=password)
+            auth.models.User.objects.create_user(username=username.lower(), first_name=firstName, last_name=lastName,
+                                                 email=email.lower(), password=password)
 
             messages.success(request, 'user registration successfully.')
             return redirect("account:signup")
         else:
-            messages.error(request,"Please try again")
+            messages.error(request, "Please try again")
         return render(request, self.template_name, {'form': form})
+
 
 def logout(request):
     auth.logout(request)
     return redirect("home")
 
+
 class profile(TemplateView):
     template_name = 'profile.html'
 
-    def get(self,request):
+    def get(self, request):
         return render(request, self.template_name, {})
+
 
 class edit_profile(TemplateView):
     template_name = 'editProfile.html'
 
     def get(self, request):
         form = editProfileForm()
-        return render(request, self.template_name, {'form':form})
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = editProfileForm(request.POST)
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
-            last_name  = form.cleaned_data['last_name']
-            email      = form.cleaned_data['email']
-            password   = form.cleaned_data['password']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
             match = auth.models.User.objects.filter(email=email.lower())
             if request.user.email == email or not match:
                 user = auth.authenticate(username=request.user, password=password)
                 if user is not None:
                     user.first_name = first_name
-                    user.last_name  = last_name
-                    user.email      = email
-                    user.save(update_fields=['first_name','last_name','email'])
-                    messages.success(request,"Successfully profile updated")
+                    user.last_name = last_name
+                    user.email = email
+                    user.save(update_fields=['first_name', 'last_name', 'email'])
+                    messages.success(request, "Successfully profile updated")
                 else:
-                    messages.error(request,"Password doesn't match")
+                    messages.error(request, "Password doesn't match")
             else:
-                messages.error(request,"Email already taken")
+                messages.error(request, "Email already taken")
         else:
-            messages.error(request,"Please try again")
-        return render(request, self.template_name, {'form':form})
+            messages.error(request, "Please try again")
+        return render(request, self.template_name, {'form': form})
+
 
 class change_username(TemplateView):
     template_name = 'profile.html'
 
     def get(self, request):
         return render(request, self.template_name, {})
+
 
 class change_password(TemplateView):
     template_name = 'profile.html'

@@ -1,8 +1,8 @@
-#for google
+# for google
 
-tls  = True
-ssl  = False
+tls = True
+ssl = False
 host = 'smtp.gmail.com'
 user = 'pranjal0819@gmail.com'
-key  = '*********'
+key = '*********'
 port = 578

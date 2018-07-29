@@ -1,14 +1,21 @@
 from django import forms
-from django.contrib.auth import models,password_validation 
+from django.contrib.auth import models, password_validation
 from django.core.validators import validate_email
+
 
 class signupForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), required=True, max_length=30)
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, max_length=20)
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False, max_length=30)
-    email = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'abcd@gmail.com','pattern':'[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True, max_length=40)
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), required=True, max_length=20)
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}), required=True, max_length=20)
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True,
+                                 max_length=20)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False,
+                                max_length=30)
+    email = forms.CharField(widget=forms.EmailInput(
+        attrs={'placeholder': 'abcd@gmail.com', 'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True,
+                            max_length=40)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), required=True,
+                               max_length=20)
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}),
+                                       required=True, max_length=20)
 
     class Meta():
         model = models.User
@@ -43,15 +50,21 @@ class signupForm(forms.ModelForm):
             else:
                 password_validation.validate_password(password2)
 
+
 class editProfileForm(forms.ModelForm):
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True, max_length=20)
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False, max_length=30)
-    email = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'abcd@gmail.com','pattern':'[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True, max_length=40)
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), required=True, max_length=20)
-    
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True,
+                                 max_length=20)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False,
+                                max_length=30)
+    email = forms.CharField(widget=forms.EmailInput(
+        attrs={'placeholder': 'abcd@gmail.com', 'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True,
+                            max_length=40)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), required=True,
+                               max_length=20)
+
     class Meta():
         model = models.User
-        fields = ['email','first_name', 'last_name']
+        fields = ['email', 'first_name', 'last_name']
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -61,13 +74,17 @@ class editProfileForm(forms.ModelForm):
             return forms.ValidationError("Email is not in correct format")
         return email
 
+
 class changePasswordForm(forms.ModelForm):
-    current_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Current Password'}), required=True, max_length=20)
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'New Password'}), required=True, max_length=20)
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}), required=True, max_length=20)
+    current_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Current Password'}),
+                                       required=True, max_length=20)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'New Password'}), required=True,
+                               max_length=20)
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}),
+                                       required=True, max_length=20)
 
     class Meta():
-        model  = models.User
+        model = models.User
         fields = ['password']
 
     def clean_confirm_password(self):

@@ -21,14 +21,14 @@ from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home, name='home'),
-    path('feedback',feedback, name='feedback'),
+    path('', home, name='home'),
+    path('feedback', feedback, name='feedback'),
 
-    path('account/',include(('account.urls','account'), namespace='account')),
-    
-    path('page/',include(('pages.urls','pages'), namespace='pages')),
+    path('account/', include(('account.urls', 'account'), namespace='account')),
 
-    path('conference/',include(('conference.urls','conference'), namespace='conference')),
+    path('page/', include(('pages.urls', 'pages'), namespace='pages')),
+
+    path('conference/', include(('conference.urls', 'conference'), namespace='conference')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
