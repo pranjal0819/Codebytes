@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 
 
 # Create your views here.
-class email(TemplateView):
+class Email(TemplateView):
 
     def get(self, request):
         subject = 'Testing'

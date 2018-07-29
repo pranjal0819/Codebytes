@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.contrib import messages, auth
-from .forms import signupForm, editProfileForm
+from .forms import SignupForm, EditProfileForm, ChangePasswordForm
 
 
 # Create your views here.
-class login(TemplateView):
+class Login(TemplateView):
     template_name = 'login.html'
 
     def get(self, request):
@@ -32,15 +32,15 @@ class login(TemplateView):
         return render(request, self.template_name, {})
 
 
-class signup(TemplateView):
+class Signup(TemplateView):
     template_name = 'signup.html'
 
     def get(self, request):
-        form = signupForm()
+        form = SignupForm()
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = signupForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             firstName = form.cleaned_data['first_name']
@@ -63,22 +63,22 @@ def logout(request):
     return redirect("home")
 
 
-class profile(TemplateView):
+class Profile(TemplateView):
     template_name = 'profile.html'
 
     def get(self, request):
         return render(request, self.template_name, {})
 
 
-class edit_profile(TemplateView):
+class EditProfile(TemplateView):
     template_name = 'editProfile.html'
 
     def get(self, request):
-        form = editProfileForm()
+        form = EditProfileForm()
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
-        form = editProfileForm(request.POST)
+        form = EditProfileForm(request.POST)
         if form.is_valid():
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
@@ -102,14 +102,14 @@ class edit_profile(TemplateView):
         return render(request, self.template_name, {'form': form})
 
 
-class change_username(TemplateView):
+class ChangeUsername(TemplateView):
     template_name = 'profile.html'
 
     def get(self, request):
         return render(request, self.template_name, {})
 
 
-class change_password(TemplateView):
+class ChangePassword(TemplateView):
     template_name = 'profile.html'
 
     def get(self, request):

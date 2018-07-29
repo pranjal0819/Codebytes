@@ -1,19 +1,57 @@
+from django.contrib import messages, auth
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from django.contrib import messages, auth
-from .forms import authorRecordForm, paperRecordForm, reviewPaperForm
+from django.core.exceptions import ObjectDoesNotExist
+from .forms import AuthorRecordForm, PaperRecordForm, ReviewPaperForm
 from .models import PaperRecord, AuthorRecord, ReviewPaperRecord
 
 
 # Create your views here.
-class welcome(TemplateView):
+class Welcome(TemplateView):
     template_name = 'welcome.html'
 
     def get(self, request):
         return render(request, self.template_name, {})
 
 
-class view_all_paper(TemplateView):
+class ReviewList(TemplateView):
+    template_name = 'review_list.html'
+
+    def get(self, request):
+        list = ReviewPaperRecord.objects.all()
+        return render(request, self.template_name, {'list': list})
+
+
+class ReviewPaper(TemplateView):
+    template_name = 'review_paper.html'
+
+    def get(self, request, pk):
+        try:
+            form = ReviewPaperForm()
+            record = ReviewPaperRecord.objects.get(user=request.user, pk=pk)
+            return render(request, self.template_name, {'form': form, 'record': record})
+        except ObjectDoesNotExist:
+            redirect("conference:view_all_paper")
+
+    def post(self, request, pk):
+        try:
+            form = ReviewPaperForm(request.POST)
+            record = ReviewPaperRecord.objects.get(user=request.user, pk=pk)
+            if form.is_valid():
+                record.overallEvaluation = form.cleaned_data['overallEvaluation']
+                record.point = form.cleaned_data['point']
+                record.remark = form.cleaned_data['remark']
+                record.save(update_fields=['overallEvaluation', 'point', 'remark'])
+                messages.success(request, "Succesfuly save")
+                return redirect("conference:welcome")
+            else:
+                messages.error(request, "Data not save")
+                return redirect("conference:welcome")
+        except ObjectDoesNotExist:
+            redirect("conference:view_all_paper")
+
+
+class ViewAllPaper(TemplateView):
     template_name = 'view_all_paper.html'
 
     def get(self, request):
@@ -28,14 +66,14 @@ class view_all_paper(TemplateView):
         return render(request, self.template_name, {'paperlist': list})
 
 
-class select_user(TemplateView):
+class SelectUser(TemplateView):
     template_name = 'userlist.html'
 
     def get(self, request, pk):
         try:
             if request.user.is_staff:
                 paper = PaperRecord.objects.get(pk=pk)
-                userlist = auth.models.User.objects.exclude(username=paper.author).filter(is_superuser=False)
+                userlist = auth.models.User.objects.exclude(username=paper.user).filter(is_superuser=False)
                 list1 = []
                 list2 = []
                 for user in userlist:
@@ -54,14 +92,13 @@ class select_user(TemplateView):
             redirect("conference:view_all_paper")
 
 
-class selected_user(TemplateView):
+class SelectedUser(TemplateView):
 
     def get(self, request, paper_pk, user_pk):
         if request.user.is_staff:
             try:
                 user = auth.models.User.objects.get(pk=user_pk)
                 paper = PaperRecord.objects.get(pk=paper_pk)
-                print(user_pk, paper_pk)
                 try:
                     ReviewPaperRecord.objects.get(user=user, paper=paper)
                     messages.error(request, "Already Assign this user")
@@ -78,7 +115,7 @@ class selected_user(TemplateView):
             return redirect("conference:welcome")
 
 
-class view_detail(TemplateView):
+class ViewDetail(TemplateView):
     template_name = 'detail.html'
 
     def get(self, request, pk):
@@ -96,18 +133,18 @@ class view_detail(TemplateView):
         return render(request, self.template_name, {'record': obj, 'authorlist': list})
 
 
-class submit_paper(TemplateView):
+class SubmitPaper(TemplateView):
     template_name = 'submit_paper.html'
 
     def get(self, request):
-        authorform = authorRecordForm()
-        paperform = paperRecordForm()
+        authorform = AuthorRecordForm()
+        paperform = PaperRecordForm()
         attr = {'authorform': authorform,
                 'paperform': paperform}
         return render(request, self.template_name, attr)
 
     def post(self, request):
-        paperform = paperRecordForm(request.POST, request.FILES)
+        paperform = PaperRecordForm(request.POST, request.FILES)
         if paperform.is_valid():
             temp = paperform.save(commit=False)
             temp.status = False
@@ -136,7 +173,7 @@ class submit_paper(TemplateView):
         return render(request, self.template_name, {'paperform': None})
 
 
-class delete_paper(TemplateView):
+class DeletePaper(TemplateView):
 
     def get(self, request, pk):
         try:

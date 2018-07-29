@@ -11,10 +11,12 @@
         {% if user.is_staff %}<h3>You login as a Staff</h3>{% endif %}
         <a href="{% url 'conference:view_all_paper' %}">View Paper</a><br>
         {% if user.is_authenticated %}
-            {% if not user.is_staff %}
-                <a href="{% url 'conference:submit_paper' %}">Submit Paper</a>
-            {% endif %}<br>
+            <a href="{% url 'conference:submit_paper' %}">Submit Paper</a>
+            <a href="{% url 'conference:review_list' %}">Review List</a>
         {% endif %}<br>
+        {% if messages %}
+            {% for m in messages %}{{ m }}<br>{% endfor %}
+        {% endif %}
 
     </div>
 {% endblock %}

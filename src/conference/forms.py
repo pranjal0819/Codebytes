@@ -2,7 +2,7 @@ from django import forms
 from .models import PaperRecord, AuthorRecord, ReviewPaperRecord
 
 
-class authorRecordForm(forms.ModelForm):
+class AuthorRecordForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Name'}), max_length=50)
     email = forms.CharField(widget=forms.EmailInput(
         attrs={'placeholder': 'abcd@gmail.com', 'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), max_length=50)
@@ -16,7 +16,7 @@ class authorRecordForm(forms.ModelForm):
         fields = ['name', 'email', 'mobileNumber', 'country', 'organization', 'url']
 
 
-class paperRecordForm(forms.ModelForm):
+class PaperRecordForm(forms.ModelForm):
     title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Title*'}), required=True, max_length=100)
     abstract = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Abstract*'}), required=True, max_length=500)
     keywords = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Keywords'}), max_length=100)
@@ -28,9 +28,11 @@ class paperRecordForm(forms.ModelForm):
         fields = ['title', 'abstract', 'keywords', 'file']
 
 
-class reviewPaperForm(forms.ModelForm):
-    comment = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Comment'}), required=True)
+class ReviewPaperForm(forms.ModelForm):
+    overallEvaluation = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Your comment'}), max_length=500)
+    point = forms.CharField(widget=forms.NumberInput(), max_length=5)
+    remark = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Remark'}), max_length=100)
 
     class Meta():
         model = ReviewPaperRecord
-        fields = ['comment']
+        fields = ['overallEvaluation', 'point', 'remark']

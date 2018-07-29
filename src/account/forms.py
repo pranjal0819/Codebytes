@@ -3,7 +3,7 @@ from django.contrib.auth import models, password_validation
 from django.core.validators import validate_email
 
 
-class signupForm(forms.ModelForm):
+class SignupForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), required=True, max_length=30)
     first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True,
                                  max_length=20)
@@ -11,7 +11,7 @@ class signupForm(forms.ModelForm):
                                 max_length=30)
     email = forms.CharField(widget=forms.EmailInput(
         attrs={'placeholder': 'abcd@gmail.com', 'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True,
-                            max_length=40)
+        max_length=40)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), required=True,
                                max_length=20)
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}),
@@ -51,14 +51,14 @@ class signupForm(forms.ModelForm):
                 password_validation.validate_password(password2)
 
 
-class editProfileForm(forms.ModelForm):
+class EditProfileForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}), required=True,
                                  max_length=20)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}), required=False,
                                 max_length=30)
     email = forms.CharField(widget=forms.EmailInput(
         attrs={'placeholder': 'abcd@gmail.com', 'pattern': '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'}), required=True,
-                            max_length=40)
+        max_length=40)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), required=True,
                                max_length=20)
 
@@ -75,7 +75,7 @@ class editProfileForm(forms.ModelForm):
         return email
 
 
-class changePasswordForm(forms.ModelForm):
+class ChangePasswordForm(forms.ModelForm):
     current_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Current Password'}),
                                        required=True, max_length=20)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'New Password'}), required=True,
