@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 import os
-from .email import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'snowpenguin.django.recaptcha2',
     'account',
     'pages',
     'conference',
@@ -126,9 +126,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = "/account/login"
 
-EMAIL_HOST = host
-EMAIL_PORT = port
-EMAIL_HOST_USER = user
-EMAIL_HOST_PASSWORD = key
-EMAIL_USE_TLS = tls
-EMAIL_USE_SSL = ssl

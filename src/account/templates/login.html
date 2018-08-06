@@ -4,7 +4,7 @@
 {% block head_title %}Login | {{ block.super }}{% endblock head_title %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
 
 {% block content %}
@@ -17,6 +17,7 @@
             {% if request.GET.next %}
                 <input type="hidden" name="next" value="{{ request.GET.next }}">
             {% endif %}
+            <br><div class="g-recaptcha" data-sitekey="6Ld5a2gUAAAAAA7LIc7ugPczbREEnZ3FVB2o2Cvu"></div><br>
             <button type="submit">Login</button>
             <a href="{% url 'account:signup' %}">Signup</a>
         </form>

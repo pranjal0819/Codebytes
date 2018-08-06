@@ -21,7 +21,7 @@ class PaperRecord(models.Model):
     abstract = models.TextField(max_length=500)
     keywords = models.TextField(max_length=100)
     file = models.FileField()
-    status = models.BooleanField()
+    status = models.IntegerField(default=3)
     timestamp = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

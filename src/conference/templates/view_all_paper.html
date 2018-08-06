@@ -86,8 +86,9 @@
                             <td><a href="{% url 'conference:select_user' pk=list.pk %}">Ass</a></td>
                             <td>update</td>
                         {% endif %}
-                        <td>{% if list.status %}Accepted
-                        {% else %}Not Accepted
+                        <td>{% if list.status == 5 %}Accepted
+                        {% elif list.status == 3 %}Not Accepted
+                            {% else %}Pending
                         {% endif %}</td>
                         <td>{{ list.timestamp }}</td>
                     </tr>

@@ -4,7 +4,7 @@
 {% block head_title %}Signup | {{ block.super }}{% endblock head_title %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
 
 {% block content %}
@@ -30,6 +30,7 @@
             </ul>
             {{ form.confirm_password }}
             {{ form.confirm_password.errors }}
+            <div class="g-recaptcha" data-sitekey="6Ld5a2gUAAAAAA7LIc7ugPczbREEnZ3FVB2o2Cvu"></div>
             <button type="submit">Signup</button>
             <a href="{% url 'account:login' %}">Login</a>
         </form>
