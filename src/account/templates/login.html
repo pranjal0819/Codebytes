@@ -1,25 +1,26 @@
-{% extends "base.html" %}
-{% load staticfiles %}
-
-{% block head_title %}Login | {{ block.super }}{% endblock head_title %}
-
-{% block css %}
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-{% endblock %}
-
+{% extends "base.html" %}{% load staticfiles %}{% block head_title %}Login | {{ block.super }}{% endblock head_title %}
+{% block css %}{% endblock %}
 {% block content %}
-    <div class="form">
-        <h2>Login To Your Account</h2>{% if request.GET.next %}<h2>Required</h2>{% endif %}
-        <h3>{% if messages %}{% for m in messages %}{{ m }}{% endfor %}{% endif %}</h3>
-        <form method="post" action="">{% csrf_token %}
-            <input type="text" name="user" placeholder="Username"></input>
-            <input type="password" name="pass" placeholder="Password"></input>
-            {% if request.GET.next %}
-                <input type="hidden" name="next" value="{{ request.GET.next }}">
-            {% endif %}
-            <br><div class="g-recaptcha" data-sitekey="6Ld5a2gUAAAAAA7LIc7ugPczbREEnZ3FVB2o2Cvu"></div><br>
-            <button type="submit">Login</button>
-            <a href="{% url 'account:signup' %}">Signup</a>
-        </form>
-    </div>
+    <div id="heading" style="top: 3.0rem;"><h1>5TH INTERNATIONAL CONFERENCE ON CICT 2019</h1></div>
+    <div class="inner"><br><br><br>
+        <div class="form" style="margin: auto;">
+            <section>
+                <div class="content">
+                    <h2>Login To Your Account</h2>{% if request.GET.next %}<h2>Required</h2>{% endif %}
+                    <h3>{% if messages %}{% for m in messages %}{{ m }}{% endfor %}{% endif %}</h3>
+                    <form method="post" action="">{% csrf_token %}
+                        <input type="text" name="user" placeholder="Username"><br>
+                        <input type="password" name="pass" placeholder="Password"><br>
+                        {% if request.GET.next %}
+                            <input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
+                        <script src='https://www.google.com/recaptcha/api.js'></script>
+                        <div class="g-recaptcha" data-sitekey="6Ld5a2gUAAAAAA7LIc7ugPczbREEnZ3FVB2o2Cvu"></div>
+                        <br>
+                        <button type="submit" class="primary button fit">Login</button>
+                        <br><br>
+                        <a href="{% url 'account:signup' %}" class="button fit">Signup</a></form>
+                </div>
+            </section>
+        </div>
+        <br></div>
 {% endblock %}
